@@ -10,6 +10,8 @@ import com.AntonchukAlejandro.services.participante.ParticipanteService;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -131,7 +133,8 @@ public class EventosServiceImpl implements EventosService {
 
     }
 
-    public void listarEventoNoDisponible() {
+    public List<EventoGastronomico> listarEventoNoDisponible() {
+        List<EventoGastronomico> listaReducida = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
         System.out.println("Ingrese la fecha: ");
         LocalDateTime fecha = LocalDateTime.now();
@@ -139,18 +142,22 @@ public class EventosServiceImpl implements EventosService {
         System.out.println("Listado de eventos no disponibles");
         for (EventoGastronomico evento : organizadorService.getEventos()) {
             if (evento.getFechaYHora().isEqual(fecha) && (evento.getCapacidad() == evento.getParticipantesActuales())) {
-                String [] datos = {
+                listaReducida.add(evento);
+                return listaReducida;
+                /*String [] datos = {
                         evento.getId().toString(),
                         evento.getNombre(),
                         evento.getDescripcion(),
                         //evento.getFechaYHora.toString(),
                         evento.getUbicacion(),
-                        evento.getCapacidad().toString(),
-                };
+                        evento.getCapacidad().toString(),*/
+
 
             }
+
         }
-
-
+        return null;
     }
+
 }
+
